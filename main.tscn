@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://bkfwrhavu6yyr"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_gfppf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sgl73"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_mrlb8"]
+sky_material = SubResource("ProceduralSkyMaterial_sgl73")
+
+[sub_resource type="Environment" id="Environment_rskdc"]
+background_mode = 2
+sky = SubResource("Sky_mrlb8")
+tonemap_mode = 2
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_u1g0i"]
+radius = 0.753426
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jg4xs"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, -0.392498, 1.14459, -0.261173)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rskdc")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.999993, -0.003735, 0, 0.003735, 0.999993, 0, 0, 0, 1, -1.71114, -0.00756719, -3.48911)
+use_collision = true
+size = Vector3(7.81683, 0.001, 11.5271)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.70997, 1.3926, -1.11657)
+script = ExtResource("1_gfppf")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.998332, -0.0577383, 0, 0.0577383, 0.998332, -0.258288, 0.581812, -0.0693402)
+shape = SubResource("CylinderShape3D_u1g0i")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.292823, 0.658796, -0.122249)
+mesh = SubResource("CapsuleMesh_jg4xs")
+
+[node name="h" type="Node3D" parent="CharacterBody3D"]
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D/h"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.481298, 0.807271, -0.0648663)
